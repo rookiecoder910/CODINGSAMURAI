@@ -1,9 +1,6 @@
-# 🎬 MovizApp: Cinematic Movie Browser
+#  MovizApp: Cinematic Movie Browser
 
-![GitHub Repo stars](https://img.shields.io/github/stars/rookiecoder910/MovizApp?style=social)
-![GitHub forks](https://img-shields.io/github/forks/rookiecoder910/MovizApp?style=social)
-![GitHub issues](https://img.shields.io/github/issues/rookiecoder910/MovizApp)
-![GitHub license](https://img.shields.io/github/license/rookiecoder910/MovizApp)
+
 
 ---
 
