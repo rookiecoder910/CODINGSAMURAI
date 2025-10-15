@@ -1,60 +1,74 @@
-# 🎬 MovizApp
+# 🎬 MovizApp: Cinematic Movie Browser
 
-![GitHub Repo stars](https://img.shields.io/github/stars/your-username/MovizApp?style=social)
-![GitHub forks](https://img.shields.io/github/forks/your-username/MovizApp?style=social)
-![GitHub issues](https://img.shields.io/github/issues/your-username/MovizApp)
-![GitHub license](https://img.shields.io/github/license/your-username/MovizApp)
-
----
-
-## 🚀 About
-
-**MovizApp** is an **Android movie browsing app** built with **Kotlin & Jetpack Compose**.  
-It fetches popular movies from TMDB API and displays them in **beautiful, interactive movie cards**.  
-Users can expand/collapse movie descriptions using a **Read more / Read less** toggle, providing a clean and modern UI.
+![GitHub Repo stars](https://img.shields.io/github/stars/rookiecoder910/MovizApp?style=social)
+![GitHub forks](https://img-shields.io/github/forks/rookiecoder910/MovizApp?style=social)
+![GitHub issues](https://img.shields.io/github/issues/rookiecoder910/MovizApp)
+![GitHub license](https://img.shields.io/github/license/rookiecoder910/MovizApp)
 
 ---
 
-## ✨ Features
+## ✨ About
 
-- Browse **popular movies** from an online API (TMDB).  
-- **Modern card UI** with movie posters, titles, and descriptions.  
-- **Read more / Read less** toggle for long movie overviews.  
-- **Smooth animations** for expanding/collapsing text.  
-- Built with **Jetpack Compose & Material3**.  
-- **Coil** for asynchronous image loading.
+**MovizApp** is a modern **Android movie browsing application** developed using **Kotlin and Jetpack Compose**. It is a robust showcase of clean architecture, MVVM, and real-time data synchronization.
+
+The app fetches **popular movie data** from the TMDB API, provides a rich user experience with a stunning **dark, cinematic background**, and allows seamless search and navigation to detailed movie pages.
+
+---
+
+## ⚡ Key Features & Technologies
+
+| Feature | Description | Skills Demonstrated |
+| :--- | :--- | :--- |
+| **Data Sync & Caching** | Uses **Room** for local database caching, ensuring the **popular movies** list is available offline. | **Room Migrations, MVVM, Data Persistence** |
+| **Dynamic Search** | Implements a functional **SearchBar** that integrates with the TMDB search endpoint to provide live suggestions and full search results. | **Retrofit API Integration, State Management** |
+| **Rich Detail View** | Dedicated screen for full movie details, including **ratings, release dates**, and a visually dominant poster header. | **Jetpack Compose Navigation, UI/UX Design** |
+| **Cinematic UI** | Features a deep **Planet Earth dark mode background** with transparent headers and action buttons for a visually striking aesthetic. | **Custom Composables, Material3 Theming** |
+| **Core UI/Logic** | Modern card layout with **smooth animations** for expanding/collapsing descriptions (**Read more / Read less** toggle). | **Animated Composables, Clean UI Design** |
 
 ---
 
 ## 📸 Screenshots
 
-<img width="338" height="764" alt="image" src="https://github.com/user-attachments/assets/061e1fc5-08ac-421a-8b00-8ea4ddac3cf1" />
-
-
-*Browse movies in a clean card layout*
-
+| Home Screen (Popular Movies) | Movie Detail Screen |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/061e1fc5-08ac-421a-8b00-8ea4ddac3cf1" width="300"/> | <img width="400" height="802" alt="Screenshot 2025-10-16 015010" src="https://github.com/user-attachments/assets/eb553183-a455-4d1f-88a1-a7c645366d1e" />
+ |
 
 ---
 
-## 🏗 Architecture
+## 🏗 Architecture & Dependencies
 
-**MVVM Pattern**  
-- **Repository** → Handles API calls and data fetching.  
-- **ViewModel** → Exposes movie data to the UI.  
-- **UI (Jetpack Compose)** → Displays movie cards and grids.  
+This project strictly follows the **MVVM (Model-View-ViewModel)** architectural pattern.
 
-**Libraries Used:**  
-- Jetpack Compose & Material3  
-- Coil (image loading)  
-- Retrofit (API calls)  
-- Kotlin Coroutines  
-- Room (optional, for local caching)
+### Architecture Flow
+1.  **UI (Jetpack Compose):** Observes state from ViewModel, handles user interaction, and navigates.
+2.  **ViewModel:** Manages UI state, contains business logic, and orchestrates data fetching/caching.
+3.  **Repository:** Acts as a single source of truth, deciding whether to fetch data from **Retrofit (API)** or **Room (Local Cache)**.
+4.  **Data Layer (Retrofit/Room):** Handles network calls and database transactions.
+
+### Libraries Used
+* **Networking:** Retrofit, OkHttp
+* **Persistence:** Room Database (with migrations for schema updates)
+* **UI Toolkit:** Jetpack Compose & Material3
+* **Asynchronous:** Kotlin Coroutines & Flow
+* **Image Loading:** Coil (for asynchronous image handling)
+* **UI Components:** Accompanist (for Swipe-to-Refresh functionality)
 
 ---
 
 ## ⚡ Setup Instructions
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/your-username/MovizApp.git
-cd MovizApp
+1.  **Clone the repository**
+    ```bash
+    git clone [https://github.com/rookiecoder910/MovizApp.git](https://github.com/rookiecoder910/MovizApp.git)
+    cd MovizApp
+    ```
+
+2.  **Add Your TMDB API Key**
+    The app requires a valid TMDB API key to fetch movie data. Create a file named **`local.properties`** in your project root and add your key:
+    ```properties
+    tmdbApiKey="YOUR_TMDB_API_KEY_HERE"
+    ```
+
+3.  **Run the application**
+    Open the project in Android Studio and run it on a physical device or emulator.
