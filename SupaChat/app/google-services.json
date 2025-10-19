@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "674126807753",
+    "project_id": "supachat-ce421",
+    "storage_bucket": "supachat-ce421.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674126807753:android:a15bfcc8c78ed9cc570318",
+        "android_client_info": {
+          "package_name": "com.example.supachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmAPvPHI9sL1bpFHWz3U94vcuYekmKfP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
