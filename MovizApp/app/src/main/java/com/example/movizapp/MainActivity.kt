@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
@@ -29,6 +32,7 @@ import com.example.movizapp.Repository.Repository
 import com.example.movizapp.ui.theme.MovizAppTheme
 import com.example.movizapp.viewmodel.MovieViewModel
 import com.example.movizapp.viewmodel.MovieViewModelFactory
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +60,7 @@ class MainActivity : ComponentActivity() {
                         //  Search bar for movies
                         MovieSearchBar(
                             viewModel = movieViewModel,
-                            
+
 
                             onSearch = { query ->
                                 movieViewModel.searchMovies(query)
@@ -87,8 +91,11 @@ fun AppHeader(
         title = {
             Text(
                 text = "Moviz",
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
+
         },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
@@ -99,7 +106,14 @@ fun AppHeader(
             }
         },
         actions = {
-            IconButton(onClick = {  }) {
+            // Added Search Icon
+            IconButton(onClick = onSearchClick) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "Search"
+                )
+            }
+            IconButton(onClick = { /* TODO: Handle Profile Click */ }) {
                 Icon(
                     imageVector = Icons.Filled.Person,
                     contentDescription = "Profile"
@@ -107,14 +121,13 @@ fun AppHeader(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            containerColor = Color.Transparent, // Make it transparent to blend with content
+            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         )
     )
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieSearchBar(
@@ -124,6 +137,49 @@ fun MovieSearchBar(
     var query by rememberSaveable { mutableStateOf("") }
     var active by rememberSaveable { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
+
+    // --- Typing Effect Logic ---
+    val placeholderTexts = listOf(
+        "Search movies...",
+        "Search by title..."
+    )
+
+    // This state holds the text that is currently visible in the placeholder
+    var displayedText by remember { mutableStateOf(placeholderTexts[0]) }
+
+    // This effect runs the typing animation
+    LaunchedEffect(active) {
+        // Only run the animation when the search bar is not active
+        if (!active) {
+            var currentTextIndex = 0
+            while (true) {
+                val targetText = placeholderTexts[currentTextIndex]
+
+
+                displayedText = ""
+                targetText.forEach { char ->
+                    displayedText += char
+                    delay(151L) // Speed of typing
+                }
+
+
+                delay(2000L)
+
+
+                repeat(targetText.length) {
+                    displayedText = displayedText.dropLast(1)
+                    delay(75L) // Speed of deleting
+                }
+
+
+                delay(500L)
+
+
+                currentTextIndex = (currentTextIndex + 1) % placeholderTexts.size
+            }
+        }
+    }
+
 
     SearchBar(
         query = query,
@@ -144,7 +200,12 @@ fun MovieSearchBar(
         modifier = Modifier
             .fillMaxWidth()
             .focusRequester(focusRequester),
-        placeholder = { Text("Search movies...") },
+
+
+        placeholder = {
+            Text(displayedText)
+        },
+
         leadingIcon = {
             IconButton(onClick = {
                 if (active) {
@@ -207,9 +268,6 @@ fun MovieSearchBar(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp)
-                )
                 Text(
                     text = "No results found",
                     modifier = Modifier.padding(16.dp),
@@ -219,4 +277,3 @@ fun MovieSearchBar(
         }
     }
 }
-
